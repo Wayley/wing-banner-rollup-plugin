@@ -1,0 +1,4 @@
+/**
+ * wing-banner-rollup-plugin-example
+ * v0.0.1
+ */

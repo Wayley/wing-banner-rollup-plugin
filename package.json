@@ -1,7 +1,7 @@
 {
   "name": "wing-banner-rollup-plugin",
   "version": "0.0.1",
-  "description": "wing plugin template",
+  "description": "wing banner rollup plugin",
   "keywords": [
     "wing",
     "plugin"

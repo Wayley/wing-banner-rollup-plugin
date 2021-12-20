@@ -1,17 +1,35 @@
-export default function myExample() {
+import { readFileSync } from "fs";
+function isPlainString(value) {
+  return Object.prototype.toString.call(value) === "[object String]";
+}
+function isPlainObject(value) {
+  return Object.prototype.toString.call(value) === "[object Object]";
+}
+function isDef(v) {
+  return v !== undefined && v !== null;
+}
+export default function wingBannerRollupPlugin(options) {
   return {
-    name: "my-example", // this name will show up in warnings and errors
-    resolveId(source) {
-      if (source === "virtual-module") {
-        return source; // this signals that rollup should not ask other plugins or check the file system to find this id
+    name: "wing-banner-rollup-plugin",
+    renderChunk(source) {
+      try {
+        if (!options) return source; // wingBannerRollupPlugin()
+        if (isPlainString(options)) {
+          return [options, source].join("\n"); // wingBannerRollupPlugin("// bannner")
+        } else if (isPlainObject(options)) {
+          const { content, path } = options;
+          if (isDef(content)) return [content, source].join("\n"); // wingBannerRollupPlugin({ content: "// banner" })
+          if (isDef(path)) {
+            const fileContent = readFileSync(path);
+            return [fileContent, source].join("\n"); // wingBannerRollupPlugin({ path: join(__dirname, "content.txt") })
+          }
+          return source;
+        } else {
+          return source;
+        }
+      } catch (error) {
+        return source;
       }
-      return null; // other ids should be handled as usually
-    },
-    load(id) {
-      if (id === "virtual-module") {
-        return 'export default "This is virtual!"'; // the source code for "virtual-module"
-      }
-      return null; // other ids should be handled as usually
     },
   };
 }
