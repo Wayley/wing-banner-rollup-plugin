@@ -3,3 +3,4 @@
 rollup.config.js
 .editorconfig
 /examples/*
+/__test__/*

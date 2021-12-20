@@ -9,7 +9,7 @@ export default {
       format: "umd",
     },
     {
-      file: "dist/wing-banner-rollup-plugin.es.js",
+      file: "dist/wing-banner-rollup-plugin.esm.js",
       format: "esm",
     },
     {
