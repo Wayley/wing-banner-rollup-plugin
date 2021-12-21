@@ -2,5 +2,7 @@
 /src/*
 rollup.config.js
 .editorconfig
-/examples/*
+.babelrc
+examples
+examples/*
 /__test__/*
