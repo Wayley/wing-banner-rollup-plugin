@@ -5,8 +5,18 @@ import plugin from "../dist/wing-banner-rollup-plugin.esm";
 const input = resolve(__dirname, "./samples/main.js");
 
 // wingBannerRollupPlugin()
-it("works with null options", async () => {
+it("works with undefined options", async () => {
   const bundle = await rollup({ input, plugins: [plugin()] });
+  const {
+    output: [{ code }],
+  } = await bundle.generate({ format: "esm" });
+  let content = JSON.stringify(code);
+  expect(content).toBe('"const test = \\"TEST\\";\\n\\nexport { test };\\n"');
+});
+
+// wingBannerRollupPlugin(null)
+it("works with null options", async () => {
+  const bundle = await rollup({ input, plugins: [plugin(null)] });
   const {
     output: [{ code }],
   } = await bundle.generate({ format: "esm" });
